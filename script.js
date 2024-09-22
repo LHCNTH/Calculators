@@ -24,9 +24,9 @@ function handleSymbol(symbol){
             if(previousOperator === null){
                 return;
             }
-            flushOperation(parseInt(buffer));
+            flushOperation(parseFloat(buffer)); // Sửa thành parseFloat
             previousOperator = null;
-            buffer = runningTotal;
+            buffer = runningTotal.toString();
             runningTotal = 0;
             break;
         case '←':
@@ -37,7 +37,9 @@ function handleSymbol(symbol){
             }
             break;
         case ',':
-
+            if(!buffer.includes('.')){
+                buffer += '.';
+            }
             break;
         case '+':
         case '−':
@@ -53,26 +55,26 @@ function handleMath(symbol){
         return;
     }
 
-    const intBuffer = parseInt(buffer);
+    const floatBuffer = parseFloat(buffer); // Sửa thành parseFloat
 
     if(runningTotal === 0){
-        runningTotal = intBuffer;
+        runningTotal = floatBuffer;
     } else{
-        flushOperation(intBuffer);
+        flushOperation(floatBuffer);
     }
     previousOperator = symbol;
     buffer = '0';
 }
 
-function flushOperation(intBuffer){
+function flushOperation(floatBuffer){ // Sửa tham số
     if(previousOperator === '+'){
-        runningTotal += intBuffer;
+        runningTotal += floatBuffer;
     } else if(previousOperator === '−'){
-        runningTotal -= intBuffer;
+        runningTotal -= floatBuffer;
     } else if(previousOperator === '×'){
-        runningTotal *= intBuffer;
+        runningTotal *= floatBuffer;
     } else if(previousOperator === '÷'){
-        runningTotal /= intBuffer;
+        runningTotal /= floatBuffer;
     }
 }
 
@@ -91,5 +93,3 @@ function init(){
 }
 
 init();
-
-
