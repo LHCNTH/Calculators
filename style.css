@@ -91,9 +91,11 @@ body{
     background-color: inherit;
 }
 
-.calc-button:active{
+.calc-button:active,
+.calc-button.active {
     background-color: #ffef78;
 }
+
 
 .calc-button:last-child:active{
     background-color: #ffef78;
